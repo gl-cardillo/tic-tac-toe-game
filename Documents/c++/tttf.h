@@ -2,6 +2,7 @@
 #include <vector>
 
 
-void draw();
 void description();
+void selection();
+void draw();
 void game();

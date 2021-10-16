@@ -7,12 +7,11 @@
 
 
 int main() {
+  
+description();
+draw();
 
- 
- description();
- draw();
- game();
+selection();
 
 
 }
-
