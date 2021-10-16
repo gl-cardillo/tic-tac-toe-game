@@ -25,6 +25,14 @@ void draw()  {
 
 }
 
+void occupied() {
+   
+  std::cout << "This place is already occupied! choose another one\n";
+  draw();
+  selection();
+
+}
+
 // how you select the place where to put X or 0
 void selection() {
  
@@ -42,9 +50,7 @@ void selection() {
 
      } else {
 
-      std::cout << "This place is already occupied! choose another one\n";
-      draw();
-      selection();
+      occupied();
       
      }
     } else  {
@@ -58,9 +64,7 @@ void selection() {
       
       } else {
 
-      std::cout << "This place is already occupied! choose another one\n";
-      draw();
-      selection();
+      occupied();
       
      }
     }
