@@ -2,7 +2,8 @@
 #include <vector>
 
 
-void description();
 void selection();
 void draw();
 void game();
+void endgame();
+void resetboard();

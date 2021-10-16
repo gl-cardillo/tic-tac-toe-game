@@ -5,16 +5,13 @@
 
 std::vector<char> board= {' ', ' ', ' ', ' ',' ', ' ', ' ', ' ', ' '};
 int moves = 0;
+bool play = true;
 int place;
+char again;
 char player1 = 'X';
-char player2 = '0';   
+char player2 = '0';
 
-void description() {
-  std::cout << "=============================\n";
-  std::cout << "welcome to a tic tac toe game\n";
-  std::cout << "=============================\n\n";
-  std::cout << "I guess you know the rules ;)\n\n";
-}
+
 // the board
 void draw()  {
 
@@ -27,10 +24,11 @@ void draw()  {
   std::cout << "     |     |      \n";
 
 }
+
 // how you select the place where to put X or 0
 void selection() {
  
-  while (moves <9) {
+  while (play && moves < 9) {
     
     if (moves % 2 == 0) {
       
@@ -68,13 +66,13 @@ void selection() {
     }
     game();
     moves += 1;
-   } std::cout << "It's a tie!!";
+   } 
+   
+   if (moves == 9) {
+     std::cout << "It's a tie!!\n";
+     endgame();
   }
- 
-
-
-
-
+} 
 
 // check if someone won
 void game() {
@@ -84,60 +82,58 @@ void game() {
      || (board[0] == board[4] && board[4] == board[8] )) 
      && (board[0] != ' ')) {
 
-    if (board[0] == player1)  {
-      
-      std::cout << "Congratulation player 1, you won!!\n";
-      moves=+ 10;
-
-    } else {
-      
-      std::cout << "Congratulation player 2, you won!!\n";
-      moves=+ 10;
+    std::cout << "Congratulation player " << board[0] << ", you won the game!!\n";
+    endgame();
   } 
- }  
-
-   if (((board[6] == board[4] && board[4] == board[2] )
+   
+  if (((board[6] == board[4] && board[4] == board[2] )
     || (board[6] == board[7] && board[7] == board[8] ))
     && (board[6] != ' '))  {
-      if (board[6] == player1)  {
       
-      std::cout << "Congratulation player 1, you won!!\n";
-      moves=+ 10;
-
-    } else {
-      
-      std::cout << "Congratulation player 2, you won!!\n";
-      moves=+ 10;
+    std::cout << "Congratulation player " << board[6] << ", you won the game!!\n";
+    endgame();
   }
- } if (((board[1] == board[4] && board[4] == board[7] ) 
+  
+  if (((board[1] == board[4] && board[4] == board[7] ) 
     || (board[3] == board[4] && board[4] == board[5])) 
     && (board[4] != ' ')) {
     
-      if (board[1] == player1)  {
-      
-      std::cout << "Congratulation player 1, you won!!\n";
-      moves=+ 10;
-
-    } else {
-      
-      std::cout << "Congratulation player 2, you won!!\n";
-      moves=+ 10;
+    std::cout << "Congratulation player " << board[4] << ", you won the game!!\n";
+    endgame();
    
-     }  
-    } if ((board[2] == board[5] && board[5] == board[8]) && (board[2] != ' '))  {
+  }  
+  if ((board[2] == board[5] && board[5] == board[8]) && (board[2] != ' '))  {
       
-      if (board[2] == player1)  {
-  
-      std::cout << "Congratulation player 1, you won!!\n";
-      moves=+ 10;
-    } else {
-      
-      std::cout << "Congratulation player 2, you won!!\n";
-      moves=+ 10;
-    } 
+    std::cout << "Congratulation player " << board[2] << ", you won the game!!\n";
+    endgame();
+     
   }
 } 
- 
 
+//end game play again
+void endgame() {
 
+  std::cout << "Would you like to play again? y/n: ";
+  std::cin >> again;
+  if (again == 'y') {
+
+    resetboard();
+    draw();
+    selection();
+  
+  } else {
+
+    play = false;
+  }
+}
+
+//restart board
+void resetboard() {
+
+  for (int i = 0; i < board.size(); i++) {
+    
+    moves = 0;
+    board[i] = ' ';
+  }
+}
 
