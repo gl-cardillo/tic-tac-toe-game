@@ -3,7 +3,8 @@
 #include "tttf.h"
 
 
-std::vector<char> board= {' ', ' ', ' ', ' ',' ', ' ', ' ', ' ', ' '};
+      
+std::vector<char> board= {'n',' ', ' ',' ', ' ', ' ', ' ', ' ', ' ', ' '};
 int moves = 0;
 bool play = true;
 int place;
@@ -16,12 +17,25 @@ char player2 = '0';
 void draw()  {
 
  
-  std::cout << "  " << board[0] << "  |  " << board[1] << "  |   " << board[2] << "\n";
+  std::cout << "  " << board[1] << "  |  " << board[2] << "  |   " << board[3] << "\n";
   std::cout << "_____|_____|_____\n";
-  std::cout << "  " << board[3] << "  |  " << board[4] << "  |   " << board[5] << "\n";
+  std::cout << "  " << board[4] << "  |  " << board[5] << "  |   " << board[6] << "\n";
   std::cout << "_____|_____|_____\n";
-  std::cout << "  " << board[6] << "  |  " << board[7] << "  |   " << board[8] << "\n";
+  std::cout << "  " << board[7] << "  |  " << board[8] << "  |   " << board[9] << "\n";
   std::cout << "     |     |      \n";
+
+}
+
+char turn() {
+
+  if (moves % 2 == 0) {
+  
+    return player1;
+  
+  } else {
+
+    return player2;
+  }
 
 }
 
@@ -36,43 +50,28 @@ void occupied() {
 // how you select the place where to put X or 0
 void selection() {
  
-  while (play && moves < 9) {
+  while ((play == true)  && (moves < 9)) {
     
-    if (moves % 2 == 0) {
-      
-      std::cout <<"Player 1 select a place between 0 and 8: ";
-      std::cin >> place;
-      if (board[place] == ' ') {
+  std::cout << turn() << " select a place between 0 and 8: ";
+  std::cin >> place;
+  
+  if (board[place] == ' ') {
 
-      board[place] = player1;
-      draw();
-      
-
-     } else {
-
-      occupied();
-      
-     }
-    } else  {
-
-      std::cout <<"Player 2 select a place between 0 and 8: ";
-      std::cin >> place;
-      if (board[place] == ' ') {
-      
-      board[place] = player2;
-      draw();
-      
-      } else {
-
-      occupied();
-      
-     }
-    }
+    board[place] = turn();
+    draw();
     game();
     moves += 1;
+
+  } else {
+
+    occupied();
+    game();
+    moves += 1;
+    }
+   
    } 
    
-   if (moves == 9) {
+  if (moves == 9) {
      std::cout << "It's a tie!!\n";
      endgame();
   }
@@ -80,37 +79,38 @@ void selection() {
 
 // check if someone won
 void game() {
-  
-    if (((board[0] == board[1] && board[1] == board[2] )
-     || (board[0] == board[3] && board[3] == board[6] ) 
-     || (board[0] == board[4] && board[4] == board[8] )) 
-     && (board[0] != ' ')) {
+  if (play == true) {
+    if (((board[1] == board[2] && board[2] == board[3] )
+     || (board[1] == board[4] && board[4] == board[7] ) 
+     || (board[1] == board[5] && board[5] == board[9] )) 
+     && (board[1] != ' ')) {
 
-    std::cout << "Congratulation player " << board[0] << ", you won the game!!\n";
+    std::cout << "Congratulation player " << board[1] << ", you won the game!!\n";
     endgame();
   } 
    
-  if (((board[6] == board[4] && board[4] == board[2] )
-    || (board[6] == board[7] && board[7] == board[8] ))
-    && (board[6] != ' '))  {
+  if (((board[7] == board[5] && board[5] == board[3] )
+    || (board[7] == board[8] && board[8] == board[9] ))
+    && (board[7] != ' '))  {
       
-    std::cout << "Congratulation player " << board[6] << ", you won the game!!\n";
+    std::cout << "Congratulation player " << board[7] << ", you won the game!!\n";
     endgame();
   }
   
-  if (((board[1] == board[4] && board[4] == board[7] ) 
-    || (board[3] == board[4] && board[4] == board[5])) 
-    && (board[4] != ' ')) {
+  if (((board[2] == board[5] && board[5] == board[8] ) 
+    || (board[4] == board[5] && board[5] == board[6])) 
+    && (board[5] != ' ')) {
     
-    std::cout << "Congratulation player " << board[4] << ", you won the game!!\n";
+    std::cout << "Congratulation player " << board[5] << ", you won the game!!\n";
     endgame();
-   
+    
   }  
-  if ((board[2] == board[5] && board[5] == board[8]) && (board[2] != ' '))  {
+  if ((board[3] == board[6] && board[6] == board[9]) && (board[3] != ' '))  {
       
-    std::cout << "Congratulation player " << board[2] << ", you won the game!!\n";
+    std::cout << "Congratulation player " << board[3] << ", you won the game!!\n";
     endgame();
      
+    }
   }
 } 
 
@@ -125,7 +125,7 @@ void endgame() {
     draw();
     selection();
   
-  } else {
+  } else if (again == 'n') {
 
     play = false;
   }
@@ -134,7 +134,7 @@ void endgame() {
 //restart board
 void resetboard() {
 
-  for (int i = 0; i < board.size(); i++) {
+  for (int i = 1; i < board.size(); i++) {
     
     moves = 0;
     board[i] = ' ';

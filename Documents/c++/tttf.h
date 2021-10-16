@@ -7,3 +7,4 @@ void draw();
 void game();
 void endgame();
 void resetboard();
+char player();
