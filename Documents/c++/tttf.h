@@ -4,7 +4,9 @@
 
 void selection();
 void draw();
-void game();
-void endgame();
+void description();
 void resetboard();
-char player();
+void endgame();
+void game();
+char turn();
+void occupied();
